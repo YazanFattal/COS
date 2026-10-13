@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f6ef">
+  <meta name="description" content="COS — Calculation of Salary. Plan your monthly salary, taxes, rent, bills, food, transportation, other expenses and savings in one clear budget.">
+  <title>COS — Calculation of Salary</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23163e33'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='36' fill='%23d9f097'%3EC%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand" aria-label="COS, Calculation of Salary"><div class="wordmark">COS<span>.</span></div><div class="brand-label">Calculation<br>of Salary</div></div>
+      <button class="help" id="how-it-works" type="button">How it works <span class="info-icon" aria-hidden="true">i</span></button>
+    </header>
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div><p class="eyebrow">A LITTLE CLARITY FOR EVERY MONTH</p><h1 id="page-title">Your salary.<br><span>Every detail.</span></h1></div>
+        <p class="intro">From rent to your next savings goal.<br>See where your money goes — and what’s left.</p>
+      </section>
+      <div class="calculator">
+        <section class="input-card" aria-labelledby="details-title">
+          <div class="card-head"><h2 id="details-title">Your monthly plan</h2><button class="text-button" id="clear" type="button">Clear all</button></div>
+          <div class="example-note"><span id="example-label">Example budget · edit any amount</span><button class="text-button" id="load-example" type="button">Load example</button></div>
+          <form id="budget-form" novalidate>
+            <section class="form-section first" aria-labelledby="income-title">
+              <div class="section-head"><span class="step">01</span><h3 id="income-title">Income & taxes</h3></div>
+              <label class="field-label" for="salary">Monthly salary</label>
+              <div class="salary-row"><div class="input-wrap"><span class="prefix currency-symbol" aria-hidden="true">$</span><input class="amount" id="salary" type="number" inputmode="decimal" min="0" max="1000000000000" step="any" value="5000" aria-describedby="income-hint errors" required></div><select class="currency" id="currency" aria-label="Currency"><option value="USD">USD $</option><option value="EUR">EUR €</option><option value="GBP">GBP £</option><option value="CAD">CAD $</option><option value="AUD">AUD $</option><option value="INR">INR ₹</option></select></div>
+              <fieldset class="segments" aria-label="Salary type"><label><input type="radio" name="income-type" value="gross" checked><span>Before tax</span></label><label><input type="radio" name="income-type" value="net"><span>After tax</span></label></fieldset>
+              <p class="field-hint" id="income-hint">Enter your gross salary. Taxes below will be subtracted.</p>
+              <div id="tax-fields" class="tax-fields">
+                <div><label class="field-label" for="tax-mode">Taxes entered as</label><select class="small-input" id="tax-mode"><option value="amount">Monthly amount</option><option value="percent">Percentage of salary</option></select></div>
+                <div><label class="field-label" for="tax" id="tax-label">Monthly taxes</label><div class="input-wrap"><span class="small-prefix currency-symbol" id="tax-symbol" aria-hidden="true">$</span><input class="small-input money-input" id="tax" type="number" inputmode="decimal" min="0" max="1000000000000" step="any" value="1000" aria-describedby="tax-hint errors"></div></div>
+                <p class="field-hint full" id="tax-hint">Use your own tax amount or rate. Local taxes are not calculated automatically.</p>
+              </div>
+            </section>
+            <section class="form-section" aria-labelledby="home-title"><div class="section-head"><span class="step">02</span><h3 id="home-title">Home & bills</h3><span class="section-total" id="home-total">$1,525.00</span></div><div class="field-grid" id="home-fields"></div></section>
+            <section class="form-section" aria-labelledby="life-title"><div class="section-head"><span class="step">03</span><h3 id="life-title">Everyday spending</h3><span class="section-total" id="life-total">$900.00</span></div><div class="field-grid" id="life-fields"></div></section>
+            <section class="form-section" aria-labelledby="other-title"><div class="section-head"><span class="step">04</span><h3 id="other-title">Other expenses</h3><span class="section-total" id="other-total">$150.00</span></div><div class="field-grid" id="other-fields"></div><div id="custom-fields"></div><button class="add-expense" id="add-expense" type="button"><span aria-hidden="true">+</span> Add another expense</button><p class="field-hint">Give extra expenses a name, such as childcare or a gym membership.</p></section>
+            <section class="form-section" aria-labelledby="savings-title"><div class="section-head"><span class="step">05</span><h3 id="savings-title">Savings</h3></div><label class="field-label" for="savings">Monthly savings goal</label><div class="input-wrap"><span class="small-prefix currency-symbol" aria-hidden="true">$</span><input class="small-input money-input" id="savings" type="number" inputmode="decimal" min="0" max="1000000000000" step="any" value="500" aria-describedby="savings-hint errors"></div><p class="field-hint" id="savings-hint">Money you plan to set aside. Your remaining balance is shown after savings.</p></section>
+            <p class="error" id="errors" role="status"></p><button class="calculate" type="submit">Calculate my budget <span aria-hidden="true">→</span></button><p class="live-note"><span></span> Your budget also updates as you type</p>
+          </form>
+        </section>
+        <aside class="summary-column" aria-labelledby="result-title">
+          <section class="result-card">
+            <div class="result-top"><h2 class="result-label" id="result-title">Left each month</h2><span class="estimate-badge">YOUR PLAN</span></div>
+            <div id="live-result" aria-live="polite" aria-atomic="true"><p class="monthly-value" id="monthly-value">$925.00</p><p class="period" id="result-caption">after taxes, expenses & savings</p></div>
+            <p class="budget-warning" id="budget-warning" hidden></p>
+            <div class="allocation-visual" aria-hidden="true"><div class="allocation-bar"><span id="bar-tax" class="bar-tax"></span><span id="bar-expenses" class="bar-expenses"></span><span id="bar-savings" class="bar-savings"></span><span id="bar-left" class="bar-left"></span></div><div class="bar-key"><span><i class="bar-tax"></i>Taxes</span><span><i class="bar-expenses"></i>Expenses</span><span><i class="bar-savings"></i>Savings</span><span><i class="bar-left"></i>Left</span></div></div>
+            <dl class="breakdown"><div><dt id="salary-summary-label">Salary before tax</dt><dd id="salary-value">$5,000.00</dd></div><div><dt>Taxes</dt><dd id="tax-value">−$1,000.00</dd></div><div class="subtotal"><dt>Take-home pay</dt><dd id="takehome-value">$4,000.00</dd></div><div><dt>Living expenses</dt><dd id="expenses-value">−$2,575.00</dd></div><div><dt>Planned savings</dt><dd id="savings-value">−$500.00</dd></div><div class="total"><dt id="balance-summary-label">Remaining balance</dt><dd id="balance-value">$925.00</dd></div></dl>
+            <details class="expense-details" open><summary>Expense breakdown <span class="chevron" aria-hidden="true">⌄</span></summary><dl class="expense-list" id="expense-list"></dl></details>
+            <div class="savings-panel"><div><span>Annual savings plan</span><strong id="annual-savings">$6,000.00</strong></div><div><span>Of take-home pay</span><strong id="savings-rate">12.5%</strong></div></div>
+            <p class="formula-note">Salary − taxes − living expenses − planned savings = remaining balance.</p>
+          </section>
+          <div class="summary-actions"><button class="copy" id="copy" type="button">Copy full breakdown <span aria-hidden="true">↗</span></button><span class="privacy">Your numbers stay in your browser.</span></div>
+        </aside>
+      </div>
+    </main>
+    <footer class="foot"><span><b>COS.</b> Calculation of Salary</span><span>All amounts are monthly. Your estimate uses the salary, taxes, expenses, and savings you enter.</span></footer>
+  </div>
+  <dialog id="info-dialog" aria-labelledby="info-title"><div class="dialog-head"><h2 id="info-title">Your monthly budget, explained.</h2><button class="close" id="close-info" aria-label="Close explanation" type="button">×</button></div><p class="modal-copy">Enter a monthly salary, your regular expenses, and the amount you want to save.</p><div class="formulas"><p><b>Before tax:</b> salary − taxes = take-home pay.</p><p><b>After tax:</b> your salary is already take-home pay. Taxes are not deducted again.</p><p><b>Remaining:</b> take-home pay − expenses − savings.</p></div><p class="modal-copy">Taxes can be a monthly amount or a percentage of gross salary. Use your own figure; COS does not apply country-specific tax rules. A negative balance is a shortfall. Annual savings are your monthly goal × 12, assuming you meet that goal each month.</p><p class="modal-copy">The example is illustrative. All amounts use the selected currency; changing currency does not convert values. Your entries stay in this tab and are cleared when the page is reloaded.</p></dialog>
+  <div class="toast" id="toast" role="status" hidden></div><script src="calculator.js"></script>
+</body>
+</html>
